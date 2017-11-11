@@ -10,10 +10,3 @@ def myrun(cmd):
         print(e)
         return False
     return True
-
-def create_direc(direc):
-    """
-    mkdir -p ${direc} 
-    """
-    cmd="mkdir -p {}".format(direc)
-    return myrun(cmd)
