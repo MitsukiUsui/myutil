@@ -2,7 +2,7 @@
 # force mode
 #--------------------------------------------------------------------------------
 FORCE_MODE=false
-forceFilepath=hoge
+forceFilepath= #WRITE ME
 if [ "$FORCE_MODE" = false ] && [ -e ${forceFilepath} ]; then
     echo "PASS: target file already exists"
 else
@@ -12,10 +12,9 @@ fi
 #--------------------------------------------------------------------------------
 # array job expander
 #--------------------------------------------------------------------------------
-argFilepath=hoge
 if [ -z ${SLURM_ARRAY_TASK_ID+x} ]; then lineNum=1; else lineNum=${SLURM_ARRAY_TASK_ID}; fi;
-line=`awk -v lineNum=$linuNum '{if (NR == lineNum) print $0}' ${argFilepath}`
-
+line=`awk -v lineNum=$lineNum '{if (NR == lineNum) print $0}' ${argFilepath}`
+arg1=`echo ${line} | cut -d ',' -f1`
 
 #--------------------------------------------------------------------------------
 # submit array jobs
