@@ -5,13 +5,12 @@ FORCE_MODE=false
 forceFilepath= #WRITE ME
 if [ "$FORCE_MODE" = false ] && [ -e ${forceFilepath} ]; then
     echo "PASS: target file already exists"
-else
-    #WRITE ME
 fi
 
 #--------------------------------------------------------------------------------
 # array job expander
 #--------------------------------------------------------------------------------
+argFilepath=${1}
 if [ -z ${SLURM_ARRAY_TASK_ID+x} ]; then lineNum=1; else lineNum=${SLURM_ARRAY_TASK_ID}; fi;
 line=`awk -v lineNum=$lineNum '{if (NR == lineNum) print $0}' ${argFilepath}`
 arg1=`echo ${line} | cut -d ',' -f1`
