@@ -1,3 +1,15 @@
+#!/bin/bash
+
+#SBATCH --job-name=job
+#SBATCH --partition=compute
+#SBATCH --ntasks=1
+#SBATCH --cpus-per-task=4
+#SBATCH --input=none
+#SBATCH --output=./log/job_%A_%a.out
+#SBATCH --error=./log/job_%A_%a.err
+#SBATCH --mem=20g
+#SBATCH --time=0-04
+
 #--------------------------------------------------------------------------------
 # force mode
 #--------------------------------------------------------------------------------
