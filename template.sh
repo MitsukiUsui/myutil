@@ -17,6 +17,7 @@ FORCE_MODE=false
 forceFilepath= #WRITE ME
 if [ "$FORCE_MODE" = false ] && [ -e ${forceFilepath} ]; then
     echo "PASS: target file already exists"
+    exit
 fi
 
 #--------------------------------------------------------------------------------
