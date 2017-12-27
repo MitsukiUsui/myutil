@@ -69,13 +69,12 @@ class DbController:
             return column_lst
         else:
             return None
-        
-    def delete(self, table):
+
+    def clear_row(self, table):
         """
-        delete all rows
+        clear all rows
         """
         
-        assert table in self.table_lst
         query = "DELETE FROM {}".format(table)
         success = self.execute(query)
         return success
@@ -92,13 +91,3 @@ class DbController:
             return self.cur.fetchone()["count"]
         else:
             return None
-    
-    def import_csv(self, csvFilepath, table):
-        """
-        import csv into table.
-        CSV NEED TO HAVE NO HEADER
-        """
-
-        assert table in self.table_lst
-        df=pd.read_csv(csvFilepath, names=self.__columns(table))
-        df.to_sql(table, self.con, if_exists="append", index=False)
