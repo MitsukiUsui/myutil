@@ -34,8 +34,8 @@ ERR=./log/pre_${JOB_ID}_${SGE_TASK_ID}.err
 # submit array jobs
 #--------------------------------------------------------------------------------
 cmd= #WRITE ME like example.sh
-argCmd=./arg/${cmd/.sh/.py}
-argFilepath=./arg/${cmd/.sh/.list}
+argCmd=./arg/${cmd%.*}.py
+argFilepath=${argCmd%.*}.lst
 eval ${argCmd} > ${argFilepath}
 numJobs=`grep -c '' ${argFilepath}`
 prevJobId=${jobId}
