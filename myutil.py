@@ -75,7 +75,7 @@ class DbController:
         clear all rows
         """
         
-        query = "DELETE FROM {}".format(table)
+        query = 'DELETE FROM "{}"'.format(table)
         success = self.execute(query)
         return success
     
@@ -85,9 +85,10 @@ class DbController:
         """
         
         assert table in self.table_lst
-        query = "SELECT COUNT(*) AS count FROM {}".format(table)
+        query = 'SELECT COUNT(*) AS count FROM "{}"'.format(table)
         success = self.execute(query)
         if success:
             return self.cur.fetchone()["count"]
         else:
             return None
+
