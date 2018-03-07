@@ -31,7 +31,7 @@ class Interval:
 
         return False
 
-def intersection(lst1, lst2):
+def intersection(lst1, lst2, setid=False):
     """
     given 2 list of Interval, return intersection.
     input lists need to have unique identifier defined as id_.
@@ -40,12 +40,20 @@ def intersection(lst1, lst2):
 
     # create sorted position list
     pos_lst = [] #(position, id_, isStart, category
-    for interval in lst1:
-        pos_lst.append((interval.start, interval.id_, True, 1))
-        pos_lst.append((interval.end, interval.id_, False, 1))
-    for interval in lst2:
-        pos_lst.append((interval.start, interval.id_, True, 2))
-        pos_lst.append((interval.end, interval.id_, False, 2))
+    for _, interval in enumerate(lst1):
+        if setid:
+            pos_lst.append((interval.start, _, True, 1))
+            pos_lst.append((interval.end, _, False, 1))
+        else:
+            pos_lst.append((interval.start, interval.id_, True, 1))
+            pos_lst.append((interval.end, interval.id_, False, 1))
+    for _, interval in enumerate(lst2):
+        if setid:
+            pos_lst.append((interval.start, _, True, 2))
+            pos_lst.append((interval.end, _, False, 2))
+        else:
+            pos_lst.append((interval.start, interval.id_, True, 2))
+            pos_lst.append((interval.end, interval.id_, False, 2))
     pos_lst = sorted(pos_lst, key=lambda x:(x[0],x[2],x[3]))
 
     # based on sorted position list, extract all the overlap information in overlap_dctdct
