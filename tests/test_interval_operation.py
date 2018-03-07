@@ -37,6 +37,9 @@ class TestIntervalOperations(unittest.TestCase):
         self.assertEqual(result[0].id1, "1-1")
         self.assertEqual(result[0].id2, "2-1")
 
+        result = myinterval.intersection(lst1, lst2, setid=True)
+        self.assertEqual(result, expect)
+
     def test_complement(self):
         lst1 = [myinterval.Interval(0, 3, '1-1'),
                 myinterval.Interval(1, 4, '1-2'),
