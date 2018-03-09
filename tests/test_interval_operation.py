@@ -37,7 +37,7 @@ class TestIntervalOperations(unittest.TestCase):
         self.assertEqual(result[0].id1, "1-1")
         self.assertEqual(result[0].id2, "2-1")
 
-        result = myinterval.intersection(lst1, lst2, setid=True)
+        result = myinterval.intersection(lst1, lst2, resetid=True)
         self.assertEqual(result, expect)
 
     def test_complement(self):
@@ -45,15 +45,41 @@ class TestIntervalOperations(unittest.TestCase):
                 myinterval.Interval(1, 4, '1-2'),
                 myinterval.Interval(5, 7, '1-3'),
                 myinterval.Interval(9, 10, '1-3')]
-
         result = myinterval.complement(lst1, 0, 8);
         expect = [myinterval.Interval(4, 5),
                   myinterval.Interval(7, 8)]
         self.assertEqual(result, expect)
 
-
         lst1 = [myinterval.Interval(0, 3, '1-1')]
         result = myinterval.complement(lst1, 5, 10);
         expect = [myinterval.Interval(5, 10)]
         self.assertEqual(result, expect)
+
+    def test_coverage(self):
+        lst = []
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 0)
+
+        lst = [myinterval.Interval(5, 10)]
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 5)
+
+        lst = [myinterval.Interval(15, 20)]
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 0)
+
+        lst = [myinterval.Interval(5, 15)]
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 10)
+
+        lst = [myinterval.Interval(4, 8),
+               myinterval.Interval(10, 12)]
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 5)
+
+        lst = [myinterval.Interval(4, 8),
+               myinterval.Interval(7, 10)]
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 5)
+
+        lst = [myinterval.Interval(4, 8),
+               myinterval.Interval(7, 10),
+               myinterval.Interval(15, 20)]
+        self.assertEqual(myinterval.coverage(lst, start=5, end=15), 5)
+
+
 

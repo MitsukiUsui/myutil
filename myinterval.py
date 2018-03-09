@@ -31,7 +31,7 @@ class Interval:
 
         return False
 
-def intersection(lst1, lst2, setid=False):
+def intersection(lst1, lst2, resetid=False):
     """
     given 2 list of Interval, return intersection.
     input lists need to have unique identifier defined as id_.
@@ -41,14 +41,14 @@ def intersection(lst1, lst2, setid=False):
     # create sorted position list
     pos_lst = [] #(position, id_, isStart, category
     for _, interval in enumerate(lst1):
-        if setid:
+        if resetid:
             pos_lst.append((interval.start, _, True, 1))
             pos_lst.append((interval.end, _, False, 1))
         else:
             pos_lst.append((interval.start, interval.id_, True, 1))
             pos_lst.append((interval.end, interval.id_, False, 1))
     for _, interval in enumerate(lst2):
-        if setid:
+        if resetid:
             pos_lst.append((interval.start, _, True, 2))
             pos_lst.append((interval.end, _, False, 2))
         else:
@@ -102,7 +102,7 @@ def intersection(lst1, lst2, setid=False):
     ret_lst = sorted(ret_lst)
     return ret_lst
 
-def complement(lst, start, end, setid=False):
+def complement(lst, start, end):
     assert start <= end
 
     pos_lst = [] #(position, isStart)
@@ -126,18 +126,12 @@ def complement(lst, start, end, setid=False):
                 prv = pos[0]
             else:
                 if cnt == 0 and pos[0] > prv:
-                    if setid:
-                        ret_lst.append(Interval(prv, end, id_))
-                    else:
-                        ret_lst.append(Interval(prv, end))
+                    ret_lst.append(Interval(prv, end, id_))
                 break
         elif pos[2] == 0:
             if pos[1]:
-                if cnt == 0 and pos[0] > prv:
-                    if setid:
-                        ret_lst.append(Interval(prv, pos[0], id_))
-                    else:
-                        ret_lst.append(Interval(prv, pos[0]))
+                if cnt == 0 and pos[0] > prv and inProcess:
+                    ret_lst.append(Interval(prv, pos[0], id_))
                 id_ += 1
                 cnt += 1
                 prv = pos[0]
@@ -145,3 +139,14 @@ def complement(lst, start, end, setid=False):
                 cnt -= 1
                 prv = pos[0]
     return ret_lst
+
+def justsum(lst):
+    sum = 0
+    for interval in lst:
+        sum += len(interval)
+    return sum
+
+def coverage(lst, start, end):
+    assert start <= end
+    coverage = (end - start) - justsum(complement(lst, start, end))
+    return coverage
