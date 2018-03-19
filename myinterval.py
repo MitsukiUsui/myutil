@@ -1,6 +1,6 @@
 class Interval:
     def __init__(self, start, end, id_=None):
-        assert start < end
+        assert start <= end
         self.start = start
         self.end = end
         if id_ is not None:
@@ -147,6 +147,6 @@ def justsum(lst):
     return sum
 
 def coverage(lst, start, end):
-    assert start <= end
-    coverage = (end - start) - justsum(complement(lst, start, end))
+    assert start < end
+    coverage = 1 - justsum(complement(lst, start, end))/(end - start)
     return coverage
