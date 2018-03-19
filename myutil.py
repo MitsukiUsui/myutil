@@ -70,7 +70,7 @@ class DbController:
         else:
             return None
 
-    def clear_row(self, table):
+    def clear_rows(self, table):
         """
         clear all rows
         """
@@ -79,7 +79,7 @@ class DbController:
         success = self.execute(query)
         return success
     
-    def count_row(self, table):
+    def count_rows(self, table):
         """
         given table name, return number of rows
         """
