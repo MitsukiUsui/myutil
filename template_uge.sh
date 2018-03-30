@@ -38,7 +38,7 @@ argCmd=./arg/${cmd%.*}.py
 argFilepath=${argCmd%.*}.lst
 eval ${argCmd} > ${argFilepath}
 numJobs=`grep -c '' ${argFilepath}`
-prevJobId=${jobId}
-jobId_r=`qsub -terse -t 1-${numJobs} -hold_jid ${prevJobId} ${cmd} ${argFilepath}`
-jobId=`echo ${jobId_r} | cut -d '.' -f1`
-echo "submitted ${numJobs} jobs with job_id=${jobId}, dependency=${prevJobId}"
+prvJobid=${jobid}
+jobid_r=`qsub -terse -t 1-${numJobs} -hold_jid ${prvJobid} ${cmd} ${argFilepath}`
+jobid=`echo ${jobid_r} | cut -d '.' -f1`
+echo "submitted ${numJobs} jobs with job_id=${jobid}, dependency=${prvJobid}"
